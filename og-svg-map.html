@@ -23,8 +23,130 @@ REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
 <dom-module id="og-svg-map">
   <template>
     <style include="og-svg-map-styles"></style>
-    <a href="javascript:" on-click="handleClick">Click here to increment counter:</a>
-    <span>{{counterValue}}</span>
+    <div style$="width: {{width}}; height: {{height}}; display: inline-block;">
+      <div class="flex flex--row main-pane" 
+        style$="width: {{width}}; height: {{height}};">
+        <div class="u-1/1" id="map">
+          <slot name="svg"></slot>
+        </div>
+        <div class="flex flex--col stream-toggles" id="toggles">
+          <!-- <template is="dom-if" if="[[_isValidMarkerGroup(upstream)]]"> -->
+            <div class$="button [[upstreamPressedCls]]" on-tap="_toggleUpstreamOnly">
+              <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <defs>
+                  <filter id="upstream-a" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g class="toggler" fill="none" fill-rule="evenodd" filter="url(#upstream-a)" transform="translate(8 5)">
+                  <circle cx="18" cy="18" r="18" fill="#FFF"/>
+                  <path fill="#3F7092" d="M10.7969725,15.6026144 L17.0910634,12.9309313 C17.262103,11.5471658 18.421539,10.4768652 19.8263833,10.4768652 C20.4580904,10.4768652 21.0401767,10.693277 21.5050891,11.0572886 L26.8913692,8.77094831 L27.9887157,11.3561346 L26.7190314,11.8950837 L26.7190314,25.9233073 L27.097561,25.9233073 C27.6498457,25.9233073 28.097561,26.3710225 28.097561,26.9233073 L28.097561,27.2195122 L11.5552056,27.2195122 L11.5552056,26.9233073 C11.5552056,26.3710225 12.0029209,25.9233073 12.5552056,25.9233073 L17.0693241,25.9233073 L17.9434331,15.6201041 L11.894319,18.1878007 L12.7058269,20.0995934 C12.8137243,20.3537837 12.6951304,20.6473139 12.44094,20.7552113 L9.55461526,21.9803835 C9.30042486,22.0882809 9.00689469,21.969687 8.89899727,21.7154966 L6.20826268,15.3765232 C6.10036526,15.1223328 6.21895914,14.8288026 6.47314954,14.7209052 L9.35947428,13.495733 C9.61366468,13.3878356 9.90719485,13.5064295 10.0150923,13.7606199 L10.7969725,15.6026144 Z M22.558999,13.6609127 C22.4712517,14.3296712 22.1524576,14.9239623 21.687076,15.3577528 L22.5834425,25.9233073 L25.3405018,25.9233073 L25.3405018,12.4802348 L22.558999,13.6609127 Z M19.8263833,14.6895312 C20.5877242,14.6895312 21.2049129,14.0608396 21.2049129,13.2853092 C21.2049129,12.5097788 20.5877242,11.8810872 19.8263833,11.8810872 C19.0650424,11.8810872 18.4478537,12.5097788 18.4478537,13.2853092 C18.4478537,14.0608396 19.0650424,14.6895312 19.8263833,14.6895312 Z"/>
+                </g>
+              </svg>
+            </div>
+          <!-- </template>
+          <template is="dom-if" if="[[_isValidMarkerGroup(midstream)]]"> -->
+            <div class$="button [[midstreamPressedCls]]" on-tap="_toggleMidstreamOnly">
+              <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <defs>
+                  <filter id="midstream-a" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g class="toggler" fill="none" fill-rule="evenodd" filter="url(#midstream-a)" transform="translate(8 5)">
+                  <circle cx="18" cy="18" r="18" fill="#FFF"/>
+                  <path fill="#3F7092" fill-rule="nonzero" d="M8.02602509,26.3338716 L22.8292683,26.3414634 L22.8292683,15.804878 L14.9264789,19.6629593 L14.9264789,15.804878 L7.02439024,19.6629593 L7.02653836,25.3333586 C7.02667366,25.8853474 7.47403678,26.3328303 8.02602548,26.3331134 Z M24.5853659,10.6585366 L24.5853659,26.3414634 L28.9756098,26.3414634 L28.9756098,10.6585366 C28.9756098,10.1062518 28.5278945,9.65853659 27.9756098,9.65853659 L25.5853659,9.65853659 C25.0330811,9.65853659 24.5853659,10.1062518 24.5853659,10.6585366 Z"/>
+                </g>
+              </svg>
+            </div>
+          <!-- </template>
+          <template is="dom-if" if="[[_isValidMarkerGroup(downstream)]]"> -->
+            <div class$="button [[downstreamPressedCls]]" on-tap="_toggleDownstreamOnly">
+              <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <defs>
+                  <filter id="downstream-a" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g class="toggler" fill="none" fill-rule="evenodd" filter="url(#downstream-a)" transform="translate(8 5)">
+                  <circle cx="18" cy="18" r="18" fill="#FFF"/>
+                  <path fill="#3F7092" fill-rule="nonzero" d="M22.5054048,20.2575318 C23.7949322,22.5491739 25.3213116,25.187227 24.1896855,27.8252801 C23.2422776,30.0103342 19.4263292,30.4899802 17.3209784,28.9711011 C16.8209576,28.6246901 16.4525212,28.1983381 16.2156692,27.6920451 C15.0577263,25.027345 16.5841056,22.4159389 17.873633,20.1242968 C19.1631604,17.8326547 20.1895189,14.0487805 20.1895189,14.0487805 L20.847441,16.2871286 C21.2685112,17.5395376 21.8474827,19.0850637 22.5054048,20.2575318 Z M16.3173772,13.7915481 C17.0990201,15.3069857 18.027221,17.070404 17.2944308,18.8338222 C16.732625,20.294153 14.4609755,20.6247939 13.1908058,19.6053177 C12.8976897,19.3848904 12.6534264,19.0818029 12.5312947,18.751162 C11.8473572,16.9877437 12.7755581,15.2243255 13.5327746,13.7088879 C14.3144174,12.1934503 14.9250759,9.65853659 14.9250759,9.65853659 L15.3158973,11.1464207 C15.5845871,11.9730231 15.9265558,13.0200526 16.3173772,13.7915481 Z M18.4704261,8.56921112 C18.969388,9.47134344 19.5996557,10.4765766 19.1794772,11.507585 C18.7855599,12.3581669 17.2624131,12.5385933 16.4220562,11.9457635 C16.211967,11.8168875 16.0544001,11.6622362 15.9756167,11.4560345 C15.5029159,10.4250262 16.1069224,9.39401782 16.6321455,8.51766071 C17.1311073,7.61552838 17.5512858,6.14634146 17.5512858,6.14634146 L17.8138973,7.02269857 C17.9714642,7.51242755 18.2078146,8.10525736 18.4704261,8.56921112 Z"/>
+                </g>
+              </svg>          
+            </div>
+          <!-- </template>
+          <template is="dom-if" if="[[_isValidMarkerGroup(predictive)]]"> -->
+            <div class$="button [[predictivePressedCls]]" on-tap="_togglePredictiveOnly">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="52" viewBox="0 0 52 52">
+                <defs>
+                  <filter id="prediction-a" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                  <path id="prediction-b" d="M19.1359756,16.4043734 C19.377439,16.8494533 19.377439,17.3581161 19.1359756,17.803196 C18.8945122,18.184693 18.5323171,18.4390244 18.0493902,18.4390244 L1.26768293,18.4390244 C0.845121951,18.4390244 0.422560976,18.2482759 0.181097561,17.803196 C-0.0603658537,17.3581161 -0.0603658537,16.8494533 0.181097561,16.4043734 L8.57195122,0.69941127 C8.75304878,0.254331371 9.17560976,0 9.65853659,0 C10.1414634,0 10.5640244,0.254331371 10.745122,0.69941127 L19.1359756,16.4043734 Z M10.5640244,13.352397 L8.75304878,13.352397 C8.57195122,13.352397 8.45121951,13.4795627 8.45121951,13.6703112 L8.45121951,15.5777965 C8.45121951,15.768545 8.57195122,15.8957107 8.75304878,15.8957107 L10.5640244,15.8957107 C10.745122,15.8957107 10.8658537,15.768545 10.8658537,15.5777965 L10.8658537,13.6703112 C10.8658537,13.4795627 10.745122,13.352397 10.5640244,13.352397 Z M11.4091463,7.12127839 C11.3487805,7.05769554 11.2884146,6.9941127 11.1676829,6.9941127 L8.14939024,6.9941127 C8.08902439,6.9941127 7.96829268,7.05769554 7.90792683,7.12127839 C7.84756098,7.18486123 7.84756098,7.24844407 7.84756098,7.31202691 L8.3304878,12.3986543 C8.3304878,12.5894029 8.45121951,12.7165685 8.63231707,12.7165685 L10.6243902,12.7165685 C10.745122,12.7165685 10.9262195,12.5894029 10.9262195,12.3986543 L11.4091463,7.31202691 C11.4695122,7.24844407 11.4695122,7.18486123 11.4091463,7.12127839 Z"/>
+                </defs>
+                <g class="toggler" fill="none" fill-rule="evenodd" filter="url(#prediction-a)" transform="translate(8 5)">
+                  <circle cx="18" cy="18" r="18" fill="#FFF"/>
+                  <g transform="translate(8.78 7.024)">
+                    <use fill="#3F7092" fill-rule="nonzero" xlink:href="#prediction-b"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          <!-- </template> -->
+        </div>
+        <div class="filter" id="filter">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+            <g fill="none" fill-rule="evenodd">
+              <rect width="40" height="40" fill="#3F7092"/>
+              <g fill="#FFF" fill-rule="nonzero" transform="translate(11 11)">
+                <path d="M2.2037037 4C3.31153704 4 4.22859259 3.25314286 4.38222222 2.28571429L16.6851852 2.28571429C16.8592778 2.28571429 17 2.158 17 2 17 1.842 16.8592778 1.71428571 16.6851852 1.71428571L4.38222222 1.71428571C4.22859259.746857143 3.31153704 0 2.2037037 0 .988518519 0 0 .897428571 0 2 0 3.10257143.988518519 4 2.2037037 4zM2.2037037.571428571C3.07164815.571428571 3.77777778 1.21228571 3.77777778 2 3.77777778 2.78771429 3.07164815 3.42857143 2.2037037 3.42857143 1.33575926 3.42857143.62962963 2.78771429.62962963 2 .62962963 1.21228571 1.33575926.571428571 2.2037037.571428571zM14.7962963 14C13.688463 14 12.7714074 14.7468571 12.6177778 15.7142857L.314814815 15.7142857C.141037037 15.7142857 0 15.842 0 16 0 16.158.141037037 16.2857143.314814815 16.2857143L12.6177778 16.2857143C12.7714074 17.2531429 13.688463 18 14.7962963 18 16.0111667 18 17 17.1025714 17 16 17 14.8974286 16.0111667 14 14.7962963 14zM14.7962963 17.4285714C13.9283519 17.4285714 13.2222222 16.7877143 13.2222222 16 13.2222222 15.2122857 13.9283519 14.5714286 14.7962963 14.5714286 15.6642407 14.5714286 16.3703704 15.2122857 16.3703704 16 16.3703704 16.7877143 15.6642407 17.4285714 14.7962963 17.4285714zM16.6851852 9.22492022L10.8195556 9.22492022C10.6948889 7.97544054 9.73187037 7 8.56516667 7 7.39846296 7 6.43544444 7.97578743 6.31077778 9.22492022L.314814815 9.22492022C.141037037 9.22492022 0 9.3799778 0 9.57180519 0 9.76363258.141037037 9.91869016.314814815 9.91869016L6.33061111 9.91869016C6.51225926 11.0980991 7.4437963 12 8.56516667 12 9.68653704 12 10.6177593 11.0980991 10.7994074 9.91869016L16.6851852 9.91869016C16.8592778 9.91869016 17 9.76363258 17 9.57180519 17 9.3799778 16.8592778 9.22492022 16.6851852 9.22492022zM8.56516667 11.3062301C7.66133333 11.3062301 6.92592593 10.4959068 6.92592593 9.5 6.92592593 8.50409324 7.66133333 7.69376995 8.56516667 7.69376995 9.469 7.69376995 10.2044074 8.50409324 10.2044074 9.5 10.2044074 10.4959068 9.469 11.3062301 8.56516667 11.3062301z"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="context-pane"
+        style$="min-height: [[contextPaneMinHeight]];">
+        <div class="flex flex--row flex--center flex--middle handle" on-tap="toggleContextPane" >
+          <div class="u-1/3"></div>
+          <div class="u-1/3 drag">
+            <svg width="50" height="20" viewBox="0 0 50 20">
+              <g transform="translate(-280 5)">
+                <path stroke="#3F7092" stroke-linecap="square" d="M295.5 7.5L317.5 7.5M295.5 11.5L317.5 11.5"/>
+              </g>
+            </svg>
+          </div>
+          <div class="u-1/3"></div>
+        </div>
+        <div id="context" hidden$="[[_compute(contextPaneOpen)]]">
+          <slot name="context-pane"></slot>
+        </div>
+      </div>
+    </div>
   </template>
 </dom-module>
 <script src="dist/og-svg-map.js"></script>
