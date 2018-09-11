@@ -13,20 +13,34 @@
        */
       width: {
         type: String,
-        value: '75vw',
-        observer: '_adjustFilterHorizontalMargin'
+        value: '75vw'
       },
       /**
       * Component Height
       */
       height: {
         type: String,
-        value: '500px',
-        observer: '_adjustFilterVerticalMargin'
+        value: '500px'
       },
       contextPaneProportion: {
         type: Number,
         value: 0.35
+      },
+      isUpstreamVisible: {
+        type: Boolean,
+        value: true
+      },
+      isMidstreamVisible: {
+        type: Boolean,
+        value: true
+      },
+      isDownstreamVisible: {
+        type: Boolean,
+        value: true
+      },
+      isPredictiveVisible: {
+        type: Boolean,
+        value: true
       }
     },
 
@@ -67,87 +81,42 @@
 
     invalidateSize() {
       this.$.map.invalidateSize();
-      this._adjustFilterHorizontalMargin();
     },
-    _removePressed() {
-      this.upstreamPressedCls = undefined;
-      this.midstreamPressedCls = undefined;
-      this.downstreamPressedCls = undefined;
-      this.predictivePressedCls = undefined;
+    _showAll(selector) {
+      this.querySelectorAll(selector).forEach((elt) => {
+        elt.style.display = 'block';
+      });
     },
-    _backup(key) {
-      if(this[key] && this[key].type) {
-        this[`_${key}`] = this[key];
-        this[key] = undefined;
-        document.querySelector(`#${key}`).redraw();
-      }
+    _hideAll(selector) {
+      this.querySelectorAll(selector).forEach((elt) => {
+        elt.style.display = 'none';
+      });
     },
-    _restore(key) {
-      const _key = `_${key}`;
-      if(this[_key] && this[_key].type) {
-        this[key] = this[_key];
-        this[_key] = undefined;
-        document.querySelector(`#${key}`).redraw();
-      }
-    },
-    _hideAll() {
-      this._removePressed();
-      this._backup('upstream');
-      this._backup('midstream');
-      this._backup('downstream');
-      this._backup('predictive');
-    },
-    _showAll() {
-      this._removePressed();
-      this._restore('upstream');
-      this._restore('midstream');
-      this._restore('downstream');
-      this._restore('predictive');
-    },
-    _toggleUpstreamOnly() {
-      if(!this.upstreamPressedCls) {
-        this._hideAll();
-        this.upstreamPressedCls = 'pressed';
-        this._restore('upstream');
+    _toggleGroup(_stateName, _selector, _pressedCls) {
+      if(this[_stateName]) {
+        this._hideAll(_selector);
+        this[_pressedCls] = 'pressed';
       } else {
-        this._showAll();
+        this._showAll(_selector);
+        this[_pressedCls] = undefined;
       }
+      this[_stateName] = !this[_stateName];
     },
-    _toggleMidstreamOnly() {
-      if(!this.midstreamPressedCls) {
-        this._hideAll();
-        this.midstreamPressedCls = 'pressed';
-        this._restore('midstream');
-      } else {
-        this._showAll();
-      }
+    _toggleUpstream() {
+      this._toggleGroup('isUpstreamVisible', 
+        '.upstream', 'upstreamPressedCls');
     },
-    _toggleDownstreamOnly() {
-      if(!this.downstreamPressedCls) {
-        this._hideAll();
-        this.downstreamPressedCls = 'pressed';
-        this._restore('downstream');
-      } else {
-        this._showAll();
-      }
+    _toggleMidstream() {
+      this._toggleGroup('isMidstreamVisible', 
+        '.midstream', 'midstreamPressedCls');
     },
-    _togglePredictiveOnly() {
-      if(!this.predictivePressedCls) {
-        this._hideAll();
-        this.predictivePressedCls = 'pressed';
-        this._restore('predictive');
-      } else {
-        this._showAll();
-      }
+    _toggleDownstream() {
+      this._toggleGroup('isDownstreamVisible', 
+        '.downstream', 'downstreamPressedCls');
     },
-    _shouldHide(bool) {
-      return bool;
-    },
-    _adjustFilterHorizontalMargin(newWidth, oldWidth) {},
-    _adjustFilterVerticalMargin(newHeight, oldHeight) {
-      if(!oldHeight) {
-        this.defaultHeight = newHeight;
-      }
+    _togglePredictive() {
+      this._toggleGroup('isPredictiveVisible', 
+        '.predictive', 'predictivePressedCls');
     },
     _compute(contextPaneOpen) {
       return !contextPaneOpen;
