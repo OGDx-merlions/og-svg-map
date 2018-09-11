@@ -4,6 +4,7 @@
     'gulp serve' (or similar server setup) to enable correct finding of bower dependencies for local runs.
 -->
 <link rel="import" href="../polymer/polymer.html"/>
+<link rel="import" href="../px-d3-imports/px-d3-imports.html"/>
 
 <link rel="import" href="css/og-svg-map-styles.html">
 
@@ -117,6 +118,14 @@ REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
               </svg>
             </div>
           <!-- </template> -->
+        </div>
+        <div class="flex flex--row zoom-controls">
+          <button class="btn btn--bare btn--icon" id="zoomIn" on-tap="_zoomIn">
+            <px-icon style="--iron-icon-height:16px; stroke: #3F7092;" icon="px-utl:add"></px-icon>
+          </button>
+          <button class="btn btn--bare btn--icon" id="zoomOut" on-tap="_zoomOut">
+            <px-icon style="--iron-icon-height:16px; stroke: #3F7092;" icon="px-utl:remove"></px-icon>
+          </button>
         </div>
         <div class="filter" id="filter">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">

@@ -24,58 +24,28 @@
         value: '500px',
         observer: '_adjustFilterVerticalMargin'
       },
-
-      /**
-       * The zoom level of the active map. Can be used to set or update
-       * the zoom level of the map, or read from after the user changes the
-       * map zoom level to an updated value.
-       *
-       * @type {Number}
-       */
-      zoom: {
-        type: Number,
-        value: 10
-      },
-
-      /**
-       * The maximum zoom level for the active map (the furthest the user can
-       * zoom in). Setting it at the map level will take precedence over the
-       * max zoom of all other layers, including tile layers. If you need to
-       * set different zoom bounds based on the visible tile layer, set the
-       * max zoom directly on your tile layer.
-       *
-       * @type {Number}
-       */
-      maxZoom: {
-        type: Number
-      },
-
-      /**
-      * The minimum zoom level for the active map (the furthest the user can
-      * zoom out). Setting it at the map level will take precedence over the
-      * min zoom of all other layers, including tile layers. If you need to
-      * set different zoom bounds based on the visible tile layer, set the
-      * min zoom directly on your tile layer.
-       *
-       * @type {Number}
-       */
-      minZoom: {
-        type: Number
-      },
       contextPaneProportion: {
         type: Number,
         value: 0.35
-      },
-      toggleMarginTop: {
-        type: String
-      },
-      toggleMarginLeft: {
-        type: String
       }
     },
 
     attached() {
       this.contextPaneOpen = false;
+      const d3 = Px.d3;
+      this.svg  = d3.select("#map svg");
+      this.zoomControl = d3.zoom()
+        .scaleExtent([1, 5])
+        .on("zoom", () => {
+          this.svg.attr("transform", d3.event.transform);
+      });
+      this.mapZoomArea = this.svg.append("rect")
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .style("cursor", "grab")
+        .call(this.zoomControl);
     },
 
     toggleContextPane() {
@@ -173,9 +143,7 @@
     _shouldHide(bool) {
       return bool;
     },
-    _adjustFilterHorizontalMargin(newWidth, oldWidth) {
-      
-    },
+    _adjustFilterHorizontalMargin(newWidth, oldWidth) {},
     _adjustFilterVerticalMargin(newHeight, oldHeight) {
       if(!oldHeight) {
         this.defaultHeight = newHeight;
@@ -184,8 +152,14 @@
     _compute(contextPaneOpen) {
       return !contextPaneOpen;
     },
-    _onIronResize() {
-      
-    }
+    _onIronResize() {},
+    _zoomIn() {
+      this.zoomControl.scaleBy(
+        this.mapZoomArea.transition().duration(750), 1.3);
+    },
+    _zoomOut() {
+      this.zoomControl.scaleBy(
+        this.mapZoomArea.transition().duration(750), 1 / 1.3);
+    },
   });
 })();

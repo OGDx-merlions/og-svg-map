@@ -34,8 +34,9 @@
 @import "px-headings-design/_base.headings.scss";
 
 
-
-
+$inuit-enable-btn--bare : true;
+$inuit-enable-btn--icon : true;
+@import 'px-buttons-design/_objects.buttons.scss';
 @import "px-meta-buttons-design/_meta.buttons.scss";
 
 
@@ -70,6 +71,27 @@
     path {
       fill: #005c99;
     }
+  }
+}
+
+.zoom-controls {
+  position: absolute;
+  right: 15px;
+  top: 80%;
+  transform: translateY(60%);
+  z-index: 1000;
+  pointer-events: all;
+  fill: none;
+  button {
+    border: 1px solid #3F7092 !important;
+    background: white !important;
+    &:hover { 
+      background: #e2e8ed !important;
+    }
+  }
+  #zoomOut {
+    margin: 0;
+    border-left: 0px solid !important;
   }
 }
 
