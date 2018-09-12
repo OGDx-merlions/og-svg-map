@@ -5,7 +5,9 @@
 
     behaviors: [Polymer.IronResizableBehavior],
 
-    listeners: {'iron-resize': '_onIronResize'},
+    listeners: {
+      'iron-resize': '_onIronResize'
+    },
 
     properties: {
       /**
@@ -20,7 +22,8 @@
       */
       height: {
         type: String,
-        value: '500px'
+        value: '500px',
+        observer: '_adjustFilterVerticalMargin'
       },
       contextPaneProportion: {
         type: Number,
@@ -53,13 +56,14 @@
         .on("zoom", () => {
           this.svg.attr("transform", d3.event.transform);
       });
-      this.mapZoomArea = this.svg.append("rect")
+      this.mapZoomArea = this.svg
         .attr("fill", "none")
         .attr("pointer-events", "all")
         .attr("width", "100%")
         .attr("height", "100%")
         .style("cursor", "grab")
         .call(this.zoomControl);
+      this._addContextualListeners();
     },
 
     toggleContextPane() {
@@ -76,6 +80,12 @@
         this.contextPaneMinHeight = 0;
         this.contextPaneMaxHeight = 0;
         this.contextPaneOpen = false;
+      }
+    },
+
+    closeContextPane() {
+      if(this.contextPaneOpen) {
+        this.toggleContextPane();
       }
     },
 
@@ -121,6 +131,11 @@
     _compute(contextPaneOpen) {
       return !contextPaneOpen;
     },
+    _adjustFilterVerticalMargin(newHeight, oldHeight) {
+      if(!oldHeight) {
+        this.defaultHeight = newHeight;
+      }
+    },
     _onIronResize() {},
     _zoomIn() {
       this.zoomControl.scaleBy(
@@ -130,5 +145,20 @@
       this.zoomControl.scaleBy(
         this.mapZoomArea.transition().duration(750), 1 / 1.3);
     },
+    _addContextualListeners() {
+      this.querySelectorAll('.contextual').forEach((elt) => {
+        this.listen(elt, 'tap', '_openContextPane');
+      });
+    },
+    _openContextPane(event) {
+      if(!this.contextPaneOpen) {
+        this.toggleContextPane();
+      }
+      this.fire('contextual-tapped', {
+        event: event, 
+        contextFragment: event.currentTarget,
+        classList: event.currentTarget.classList
+      });
+    }
   });
 })();
