@@ -12,6 +12,8 @@
     properties: {
       /**
        * Component width
+       * 
+       * @type {String}
        */
       width: {
         type: String,
@@ -19,12 +21,19 @@
       },
       /**
       * Component Height
+      * 
+      * @type {String}
       */
       height: {
         type: String,
         value: '500px',
         observer: '_adjustFilterVerticalMargin'
       },
+      /**
+       * Proportion of contextual pane to the whole window
+       * Must be less than 1.
+       * @type {Number}
+       */
       contextPaneProportion: {
         type: Number,
         value: 0.35
@@ -150,6 +159,15 @@
         this.listen(elt, 'tap', '_openContextPane');
       });
     },
+    /**
+    * Fires event when a class named `contextual` is tapped
+    *
+    *   * {Object} event - Contains the event details
+    *   * {Element} contextFragment - Target on which the tap event occured
+    *   * {Array} classList - Classes on the tapped element
+    *
+    * @event contextual-tapped
+    */
     _openContextPane(event) {
       if(!this.contextPaneOpen) {
         this.toggleContextPane();

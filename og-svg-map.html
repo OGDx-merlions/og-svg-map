@@ -9,14 +9,33 @@
 <link rel="import" href="css/og-svg-map-styles.html">
 
 <!--
-REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+Annotate svg elements with the following classes:
+
+  - `contextual` : To trigger tap events on these elements
+  - `upstream`   : To toggle upstream on corresponding filter tap
+  - `midstream`  : To toggle midstream on corresponding filter tap
+  - `downstream` : To toggle downstream on corresponding filter tap
+  - `predictive` : To toggle predictive on corresponding filter tap
+
+Context pane inner elements can be toggled by listening to the `contextual-tapped`
+event which gets triggered on tap of the contextual classed elements
 
 ### Usage
 
-    <og-svg-map counter-value="1"></og-svg-map>
+    <og-svg-map
+      width="100%"
+      height="500px"
+      zoom="7.5">
+      <div slot="svg">
+        <svg>SVG Content HERE</svg>
+      </div>
+      <div slot="context-pane" class="u-1/1">
+        <div>Context Content HERE </div>
+      </div>
+    </og-svg-map>
 
 @element og-svg-map
-@blurb REPLACE THIS TEXT WITH A COMPONENT DESCRIPTION
+@blurb 
 @homepage index.html
 @demo index.html
 -->
