@@ -60,10 +60,17 @@
       this.contextPaneOpen = false;
       const d3 = Px.d3;
       this.svg  = d3.select("#map svg");
+      const dims = this.$.map.querySelector("svg").getBoundingClientRect();
       this.zoomControl = d3.zoom()
+        .extent([[-dims.x, -dims.y], [dims.x, dims.y]])
         .scaleExtent([1, 5])
-        .on("zoom", () => {
+        .translateExtent([[-dims.x, -dims.y], [dims.x, dims.y*3]])
+        .on("zoom", (e) => {
           this.svg.attr("transform", d3.event.transform);
+          let scale = this.svg.attr("transform").split("scale(")[1].replace(")", "");
+          scale = parseFloat(scale);
+          const factor = scale == 1 ? 1 : ((scale-1)*10);
+          this.zoomControl.translateExtent([[-dims.x, -dims.y], [dims.x * factor, dims.y * 3]])
       });
       this.mapZoomArea = this.svg
         .attr("fill", "none")
@@ -162,7 +169,8 @@
     _gotoDefaultLocation() {
       this.mapZoomArea.transition()
         .duration(750)
-        .call(this.zoomControl.transform, Px.d3.zoomIdentity);
+        .call(this.zoomControl.transform, 
+          Px.d3.zoomIdentity.translate(0, 0).scale(1));
     },
     /**
     * Fires event when a class named `contextual` is tapped
