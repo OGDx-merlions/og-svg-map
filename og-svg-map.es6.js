@@ -148,16 +148,21 @@
     _onIronResize() {},
     _zoomIn() {
       this.zoomControl.scaleBy(
-        this.mapZoomArea.transition().duration(750), 1.3);
+        this.mapZoomArea.transition().duration(500), 1.3);
     },
     _zoomOut() {
       this.zoomControl.scaleBy(
-        this.mapZoomArea.transition().duration(750), 1 / 1.3);
+        this.mapZoomArea.transition().duration(500), 1 / 1.3);
     },
     _addContextualListeners() {
       this.querySelectorAll('.contextual').forEach((elt) => {
         this.listen(elt, 'tap', '_openContextPane');
       });
+    },
+    _gotoDefaultLocation() {
+      this.mapZoomArea.transition()
+        .duration(750)
+        .call(this.zoomControl.transform, Px.d3.zoomIdentity);
     },
     /**
     * Fires event when a class named `contextual` is tapped

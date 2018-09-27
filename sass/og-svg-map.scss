@@ -95,6 +95,23 @@ $inuit-enable-btn--icon : true;
   }
 }
 
+.location-control {
+  position: absolute;
+  left: 15px;
+  top: 80%;
+  transform: translateY(60%);
+  z-index: 1000;
+  pointer-events: all;
+  fill: none;
+  button {
+    border: 1px solid #3F7092 !important;
+    background: white !important;
+    &:hover { 
+      background: #e2e8ed !important;
+    }
+  }
+}
+
 .filter {
   position: relative;
   z-index: 1000;
