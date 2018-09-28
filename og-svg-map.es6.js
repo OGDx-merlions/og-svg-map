@@ -53,24 +53,35 @@
       isPredictiveVisible: {
         type: Boolean,
         value: true
+      },
+      now: {
+        type: String,
+        value() {
+          return new Date().getTime();
+        }
       }
     },
 
     attached() {
       this.contextPaneOpen = false;
       const d3 = Px.d3;
-      this.svg  = d3.select("#map svg");
-      const dims = this.$.map.querySelector("svg").getBoundingClientRect();
+      this.svg  = d3.select(this.$.map.querySelector("svg"));
+      let dims = this.$.map.querySelector("svg").getBoundingClientRect();
+      const me = this;
       this.zoomControl = d3.zoom()
         .extent([[-dims.x, -dims.y], [dims.x, dims.y]])
         .scaleExtent([1, 5])
         .translateExtent([[-dims.x, -dims.y], [dims.x, dims.y*3]])
         .on("zoom", (e) => {
-          this.svg.attr("transform", d3.event.transform);
-          let scale = this.svg.attr("transform").split("scale(")[1].replace(")", "");
+          if(!dims.width) {
+              dims = me.$.map.querySelector("svg").getBoundingClientRect();
+              me.zoomControl.extent([[-dims.x, -dims.y], [dims.x, dims.y]]);
+          }
+          me.svg.attr("transform", d3.event.transform);
+          let scale = me.svg.attr("transform").split("scale(")[1].replace(")", "");
           scale = parseFloat(scale);
           const factor = scale == 1 ? 1 : ((scale-1)*10);
-          this.zoomControl.translateExtent([[-dims.x, -dims.y], [dims.x * factor, dims.y * 3]])
+          me.zoomControl.translateExtent([[-dims.x, -dims.y], [dims.x * factor, dims.y * 3]])
       });
       this.mapZoomArea = this.svg
         .attr("fill", "none")
