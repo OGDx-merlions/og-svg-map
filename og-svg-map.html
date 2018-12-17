@@ -52,14 +52,19 @@ event which gets triggered on tap of the contextual classed elements
         <div class="flex flex--col stream-toggles" id="toggles">
           <!-- <template is="dom-if" if="[[_isValidMarkerGroup(upstream)]]"> -->
             <div class$="button [[upstreamPressedCls]]" on-tap="_toggleUpstream">
-              <svg width="39" height="39" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
-                <title>blue oilwell</title>
-                <desc>Created with Sketch.</desc>
+              <svg width="52" height="52" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <polygon id="path-1" points="0.0580289855 0.0702028985 3.63513044 0.0702028985 3.63513044 5.20353623 0.0580289855 5.20353623"></polygon>
+                  <filter id$="upstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
                 </defs>
-                <g id="V-Fixes" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="V-Fixes toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
                     <g id="Artboard" transform="translate(-74.000000, -22.000000)">
                         <g id="blue-oilwell" transform="translate(74.000000, 22.000000)">
                             <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="19.5" cy="19.5" r="19.5"></circle>
@@ -92,11 +97,19 @@ event which gets triggered on tap of the contextual classed elements
           <!-- </template>
           <template is="dom-if" if="[[_isValidMarkerGroup(midstream)]]"> -->
             <div class$="button [[midstreamPressedCls]]" on-tap="_toggleMidstream">
-              <svg width="39" height="39" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
-                <title>pipeline</title>
-                <desc>Created with Sketch.</desc>
-                <g id="V-Fixes" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <svg width="52" height="52" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id$="midstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                    <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
+                    <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+                    <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+                    <feMerge>
+                      <feMergeNode in="shadowMatrixOuter1"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g id="V-Fixes toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
                     <g id="Artboard" transform="translate(-74.000000, -81.000000)" fill-rule="nonzero">
                         <g id="pipeline" transform="translate(74.000000, 81.000000)">
                             <circle id="Oval" fill="#FFFFFF" cx="19.5" cy="19.5" r="19.5"></circle>
@@ -113,7 +126,7 @@ event which gets triggered on tap of the contextual classed elements
             <div class$="button [[downstreamPressedCls]]" on-tap="_toggleDownstream">
               <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <defs>
-                  <filter id$="midstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
+                  <filter id$="downstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
                     <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
                     <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
                     <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
@@ -123,7 +136,7 @@ event which gets triggered on tap of the contextual classed elements
                     </feMerge>
                   </filter>
                 </defs>
-                <g class="toggler" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
+                <g class="toggler" fill="none" fill-rule="evenodd" filter$="url(#downstream-a_[[now]])" transform="translate(8 5)">
                   <circle cx="18" cy="18" r="18" fill="#FFF"/>
                   <path fill="#3F7092" fill-rule="nonzero" d="M8.02602509,26.3338716 L22.8292683,26.3414634 L22.8292683,15.804878 L14.9264789,19.6629593 L14.9264789,15.804878 L7.02439024,19.6629593 L7.02653836,25.3333586 C7.02667366,25.8853474 7.47403678,26.3328303 8.02602548,26.3331134 Z M24.5853659,10.6585366 L24.5853659,26.3414634 L28.9756098,26.3414634 L28.9756098,10.6585366 C28.9756098,10.1062518 28.5278945,9.65853659 27.9756098,9.65853659 L25.5853659,9.65853659 C25.0330811,9.65853659 24.5853659,10.1062518 24.5853659,10.6585366 Z"/>
                 </g>
