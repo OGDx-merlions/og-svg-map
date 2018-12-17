@@ -52,7 +52,7 @@ event which gets triggered on tap of the contextual classed elements
         <div class="flex flex--col stream-toggles" id="toggles">
           <!-- <template is="dom-if" if="[[_isValidMarkerGroup(upstream)]]"> -->
             <div class$="button [[upstreamPressedCls]]" on-tap="_toggleUpstream">
-              <svg width="52" height="52" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+              <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id$="upstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
                     <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
@@ -64,7 +64,7 @@ event which gets triggered on tap of the contextual classed elements
                     </feMerge>
                   </filter>
                 </defs>
-                <g id="V-Fixes toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
+                <g id="V-Fixes" class="toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#upstream-a_[[now]])" transform="translate(8 5)">
                     <g id="Artboard" transform="translate(-74.000000, -22.000000)">
                         <g id="blue-oilwell" transform="translate(74.000000, 22.000000)">
                             <circle id="Oval" fill="#FFFFFF" fill-rule="nonzero" cx="19.5" cy="19.5" r="19.5"></circle>
@@ -97,7 +97,7 @@ event which gets triggered on tap of the contextual classed elements
           <!-- </template>
           <template is="dom-if" if="[[_isValidMarkerGroup(midstream)]]"> -->
             <div class$="button [[midstreamPressedCls]]" on-tap="_toggleMidstream">
-              <svg width="52" height="52" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+              <svg width="52" height="52" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id$="midstream-a_[[now]]" width="175%" height="175%" x="-37.5%" y="-29.2%" filterUnits="objectBoundingBox">
                     <feOffset dy="3" in="SourceAlpha" result="shadowOffsetOuter1"/>
@@ -109,7 +109,7 @@ event which gets triggered on tap of the contextual classed elements
                     </feMerge>
                   </filter>
                 </defs>
-                <g id="V-Fixes toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
+                <g id="V-Fixes" class="toggler" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" filter$="url(#midstream-a_[[now]])" transform="translate(8 5)">
                     <g id="Artboard" transform="translate(-74.000000, -81.000000)" fill-rule="nonzero">
                         <g id="pipeline" transform="translate(74.000000, 81.000000)">
                             <circle id="Oval" fill="#FFFFFF" cx="19.5" cy="19.5" r="19.5"></circle>
